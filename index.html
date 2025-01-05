@@ -12,10 +12,33 @@
       crossorigin="anonymous"
     />
   </head>
-  <body>
-    <h1 class="setup">Project setup</h1>
+  <body class="container">
+    <section class="my-5">
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          id="search_box"
+          class="search_box form-control"
+          placeholder="Search by name"
+          aria-label="search"
+          aria-describedby="basic-addon2"
+        />
+        <button id="search_btn" class="btn btn-primary search_btn">
+          Search
+        </button>
+      </div>
+    </section>
+
+    <section class="d-flex">
+      <div id="show_data" class="show_data w-75"></div>
+      <div class="w-25 text-center">asdfasdf</div>
+    </section>
+
     <script src="app.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  </body>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
