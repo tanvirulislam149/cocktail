@@ -1,8 +1,11 @@
-fetch("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=ma")
-  .then((res) => res.json())
-  .then((data) => {
-    displayData(data.drinks);
-  });
+const fetchData = () => {
+  fetch("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=ma")
+    .then((res) => res.json())
+    .then((data) => {
+      displayData(data.drinks);
+    });
+};
+fetchData();
 
 const displayData = (allData) => {
   const show_data = document.getElementById("show_data");
@@ -31,5 +34,25 @@ const displayData = (allData) => {
 
 document.getElementById("search_btn").addEventListener("click", (e) => {
   const text = document.getElementById("search_box").value;
-  console.log(text);
+  if (text.length == 0) {
+    document.getElementById("show_data").innerHTML = "";
+    fetchData();
+  } else {
+    fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${text}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        document.getElementById("show_data").innerHTML = "";
+        if (data.drinks) {
+          displayData(data.drinks);
+        } else {
+          const show_data = document.getElementById("show_data");
+          const p = document.createElement("p");
+          p.classList.add("no_data");
+          p.innerText = "No data found";
+          console.log(p);
+          show_data.appendChild(p);
+        }
+      });
+  }
 });
