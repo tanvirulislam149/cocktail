@@ -24,7 +24,12 @@ const displayData = (allData) => {
       0,
       15
     )}${element.strInstructions.length > 15 ? "..." : ""}</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <div class="d-flex justify-content-between">
+                <button class="btn btn-primary" onclick="handleCart()">Add to cart</button>
+                <button id="details_btn" onclick="handleDetails(${
+                  element.idDrink
+                })" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Details</button>
+            </div>
         </div>
     </div>
     `;
@@ -56,3 +61,29 @@ document.getElementById("search_btn").addEventListener("click", (e) => {
       });
   }
 });
+
+const handleDetails = (id) => {
+  fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data.drinks[0]);
+      const item = data.drinks[0];
+      const modalTitle = document.getElementById("exampleModalLabel");
+      modalTitle.innerText = item.strDrink;
+      const modalBody = document.getElementById("modal_body");
+      modalBody.innerHTML = `
+      <div class="card h-100 border-0">
+        <img src="${item.strDrinkThumb}" class="card-img-top w-50 mx-auto" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">Name: ${item.strDrink}</h5>
+            <h6 class="card-title">Category: ${item.strCategory}</h6>
+            <h6 class="card-title">Alcoholic: ${item.strAlcoholic}</h6>
+            <p class="card-text"><b>Instructions:</b> ${item.strInstructions}</p>
+        </div>
+    </div>
+      `;
+    });
+};
+
+const cart = [];
+const handleCart = () => {};
