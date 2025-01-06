@@ -94,14 +94,17 @@ const handleCart = (id) => {
   if (cart.length >= 7) {
     alert("Cann't add more than 7 items.");
   } else {
-    const res = allData.find((i) => i.idDrink == id);
-    cart.push(res);
-    const cart_data = document.getElementById("cart_data");
-    document.getElementById("count").innerText = cart.length;
-    cart_data.innerHTML = "";
-    cart.forEach((e, index) => {
-      const table_row = document.createElement("tr");
-      table_row.innerHTML = `
+    fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        const res = data.drinks[0];
+        cart.push(res);
+        const cart_data = document.getElementById("cart_data");
+        document.getElementById("count").innerText = cart.length;
+        cart_data.innerHTML = "";
+        cart.forEach((e, index) => {
+          const table_row = document.createElement("tr");
+          table_row.innerHTML = `
       <th scope="row">${index + 1}</th>
       <td>
         <img
@@ -112,7 +115,8 @@ const handleCart = (id) => {
       </td>
       <td>${e.strDrink}</td>
     `;
-      cart_data.appendChild(table_row);
-    });
+          cart_data.appendChild(table_row);
+        });
+      });
   }
 };
