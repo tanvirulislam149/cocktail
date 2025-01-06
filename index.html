@@ -32,8 +32,10 @@
     <section class="d-flex">
       <div id="show_data" class="show_data w-75"></div>
       <div class="w-25 text-center border">
-        <h3 class="cart_title"><u>Total items:</u></h3>
-        <table class="table">
+        <h3 class="cart_title">
+          <u>Total items: <span id="count"></span></u>
+        </h3>
+        <table class="table align-middle">
           <thead>
             <tr>
               <th scope="col">#</th>
@@ -41,18 +43,7 @@
               <th scope="col">Name</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>@fat</td>
-            </tr>
-          </tbody>
+          <tbody id="cart_data"></tbody>
         </table>
       </div>
 

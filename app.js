@@ -1,8 +1,10 @@
+let allData;
 const fetchData = () => {
   fetch("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=ma")
     .then((res) => res.json())
     .then((data) => {
       displayData(data.drinks);
+      allData = data.drinks;
     });
 };
 fetchData();
@@ -25,7 +27,9 @@ const displayData = (allData) => {
       15
     )}${element.strInstructions.length > 15 ? "..." : ""}</p>
             <div class="d-flex justify-content-between">
-                <button class="btn btn-primary" onclick="handleCart()">Add to cart</button>
+                <button class="btn btn-primary" onclick="handleCart(${
+                  element.idDrink
+                })">Add to cart</button>
                 <button id="details_btn" onclick="handleDetails(${
                   element.idDrink
                 })" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Details</button>
@@ -86,4 +90,29 @@ const handleDetails = (id) => {
 };
 
 const cart = [];
-const handleCart = () => {};
+const handleCart = (id) => {
+  if (cart.length >= 7) {
+    alert("Cann't add more than 7 items.");
+  } else {
+    const res = allData.find((i) => i.idDrink == id);
+    cart.push(res);
+    const cart_data = document.getElementById("cart_data");
+    document.getElementById("count").innerText = cart.length;
+    cart_data.innerHTML = "";
+    cart.forEach((e, index) => {
+      const table_row = document.createElement("tr");
+      table_row.innerHTML = `
+      <th scope="row">${index + 1}</th>
+      <td>
+        <img
+          style="width: 50px; border-radius: 50%"
+          src="${e.strDrinkThumb}"
+          alt=""
+        />
+      </td>
+      <td>${e.strDrink}</td>
+    `;
+      cart_data.appendChild(table_row);
+    });
+  }
+};
